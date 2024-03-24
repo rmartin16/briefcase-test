@@ -1,0 +1,3 @@
+[submodule "docs/beeware-common-docs-test"]
+	path = docs/beeware-common-docs-test
+	url = https://github.com/rmartin16/beeware-common-docs-test.git

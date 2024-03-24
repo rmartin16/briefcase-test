@@ -15,6 +15,8 @@ native application. It supports producing binaries for:
 It is also extensible, allowing for additional platforms and installation
 formats to be produced.
 
+.. include:: beeware-common-docs-test/common-1.rst
+
 Table of contents
 =================
 
