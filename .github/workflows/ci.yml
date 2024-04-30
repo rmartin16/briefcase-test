@@ -94,7 +94,7 @@ jobs:
         RUNNER_OS=$(cut -d- -f1 <<< ${{ matrix.platform }})
         RUNNER_VERSION=$(cut -d- -f2 <<< ${{ matrix.platform }})
         COVERAGE_FILE=".coverage.${RUNNER_OS}.${RUNNER_VERSION}.${{ matrix.python-version }}" \
-          tox -e py --installpkg dist/briefcase-*.whl #-- -vv --color yes \
+          tox -e py-cov --installpkg dist/briefcase-*.whl #-- -vv --color yes \
           #  tests/bootstraps/ \
           #  tests/commands/ \
           #  tests/config/ \
