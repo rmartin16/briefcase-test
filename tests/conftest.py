@@ -41,10 +41,10 @@ def monkeypatched_print(*args, **kwargs):
     _print(*args, **kwargs)
 
 
-@pytest.fixture(autouse=True)
-def no_print(monkeypatch):
-    """Replace builtin ``print()`` for ALL tests."""
-    monkeypatch.setattr("builtins.print", monkeypatched_print)
+# @pytest.fixture(autouse=True)
+# def no_print(monkeypatch):
+#     """Replace builtin ``print()`` for ALL tests."""
+#     monkeypatch.setattr("builtins.print", monkeypatched_print)
 
 
 @pytest.fixture

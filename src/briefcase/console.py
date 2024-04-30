@@ -42,6 +42,21 @@ ANSI_ESC_SEQ_RE_DEF = r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])"
 ANSI_ESCAPE_RE = re.compile(ANSI_ESC_SEQ_RE_DEF)
 
 
+
+import sys
+import inspect
+
+def open_audit_hook(name, *args):
+    if name == "open" and args[0][0] == "/dev/null":
+        print(name, *args, "was called:")
+        caller = inspect.currentframe()
+        while caller := caller.f_back:
+            print(f"\tFunction {caller.f_code.co_name} "
+                  f"in {caller.f_code.co_filename}:"
+                  f"{caller.f_lineno}"
+            )
+sys.addaudithook(open_audit_hook)
+
 class InputDisabled(Exception):
     def __init__(self):
         super().__init__(
@@ -100,6 +115,7 @@ class Printer:
         # writing to /dev/null allows Rich to do so without needing to print the
         # logs in the console or save them to file before it is known a file is wanted.
         self.dev_null = open(os.devnull, "w", encoding="utf-8", errors="ignore")
+        self.dev_null.briefcase_owned = True
         self.log = RichConsole(
             file=self.dev_null,
             record=True,
