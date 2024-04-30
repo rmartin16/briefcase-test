@@ -94,7 +94,15 @@ jobs:
         RUNNER_OS=$(cut -d- -f1 <<< ${{ matrix.platform }})
         RUNNER_VERSION=$(cut -d- -f2 <<< ${{ matrix.platform }})
         COVERAGE_FILE=".coverage.${RUNNER_OS}.${RUNNER_VERSION}.${{ matrix.python-version }}" \
-          tox -e py-cov --installpkg dist/briefcase-*.whl
+          tox -e py --installpkg dist/briefcase-*.whl #-- -vv --color yes \
+          #  tests/bootstraps/ \
+          #  tests/commands/ \
+          #  tests/config/ \
+          #  tests/console/ \
+          #  tests/integrations/ \
+          #  tests/platforms/ \
+          #  tests/test_cmdline.py \
+          #  tests/test_mainline.py
 
     - name: Store Coverage Data
       if: always() && contains('success,failure', steps.test.outcome)
@@ -104,11 +112,11 @@ jobs:
         path: ".coverage.*"
         if-no-files-found: ignore
 
-    - name: Report Platform Coverage
-      id: coverage
-      if: always() && contains('success,failure', steps.test.outcome)
-      # coverage reporting must use the same Python version used to produce coverage
-      run: tox -qe coverage$(tr -dc "0-9" <<< "${{ matrix.python-version }}")
+#    - name: Report Platform Coverage
+#      id: coverage
+#      if: always() && contains('success,failure', steps.test.outcome)
+#      # coverage reporting must use the same Python version used to produce coverage
+#      run: tox -qe coverage$(tr -dc "0-9" <<< "${{ matrix.python-version }}")
 
 #  coverage:
 #    name: Project coverage
