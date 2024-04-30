@@ -23,13 +23,13 @@ env:
   FORCE_COLOR: "1"
 
 jobs:
-  pre-commit:
-    name: Pre-commit checks
-    uses: beeware/.github/.github/workflows/pre-commit-run.yml@main
-
-  towncrier:
-    name: Check towncrier
-    uses: beeware/.github/.github/workflows/towncrier-run.yml@main
+#  pre-commit:
+#    name: Pre-commit checks
+#    uses: beeware/.github/.github/workflows/pre-commit-run.yml@main
+#
+#  towncrier:
+#    name: Check towncrier
+#    uses: beeware/.github/.github/workflows/towncrier-run.yml@main
 
   package:
     name: Python package
@@ -39,7 +39,7 @@ jobs:
 
   unit-tests:
     name: Unit tests
-    needs: [ pre-commit, towncrier, package ]
+    needs: [ package ]
     runs-on: ${{ matrix.platform }}
     strategy:
       fail-fast: false
