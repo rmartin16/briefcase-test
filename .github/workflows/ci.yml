@@ -41,7 +41,6 @@ jobs:
     name: Unit tests
     needs: [ pre-commit, towncrier, package ]
     runs-on: ${{ matrix.platform }}
-    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
